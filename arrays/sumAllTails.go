@@ -1,18 +1,14 @@
 package arrays
 
-func SumAllTails(params ...[]int) []int {
-	var result []int
-
-	for _, arr := range params {
-		var tail []int
-
-		if len(arr) == 0 {
-			tail = []int{0}
+func SumAllTails(numbers ...[]int) []int {
+	sumTail := func(acc, x []int) []int {
+		if len(x) == 0 {
+			return append(acc, 0)
 		} else {
-			tail = arr[1:]
+			tail := x[1:]
+			return append(acc, Sum(tail))
 		}
-		result = append(result, Sum(tail))
 	}
 
-	return result
+	return Reduce(numbers, sumTail, []int{})
 }
